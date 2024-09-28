@@ -45,7 +45,7 @@
 | ----------------- | ---------- | ------------------------------ |
 | item              | references | null: false, foreign_key: true |
 | order             | references | null: false, foreign_key: true |
-| post_code         | integer    | null: false                    |
+| post_code         | string     | null: false                    |
 | sender_address_id | integer    | null: false                    |
 | city              | string     | null: false                    |
 | street_number     | string     | null: false                    |
