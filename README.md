@@ -11,11 +11,13 @@
 | birth_day          | date    | null: false |
 
 ### Association
+ - has_many :items
  - has_many :orders
 
 ## itemsテーブル
 | Column            | Type       | Options                        |
 | ----------------- | ---------- | ------------------------------ |
+| user              | references | null: false, foreign_key: true |
 | product_name      | string     | null: false                    |
 | category_id       | integer    | null: false                    |
 | price             | integer    | null: false                    |
@@ -26,8 +28,8 @@
 | shipping_date_id  | integer    | null: false                    |
 
 ### Association
+ - belongs_to :user
  - has_one :order
- - has_one :address
 
 ## ordersテーブル
 | Column | Type       | Options                        |
@@ -43,15 +45,13 @@
 ## addressesテーブル
 | Column            | Type       | Options                        |
 | ----------------- | ---------- | ------------------------------ |
-| item              | references | null: false, foreign_key: true |
 | order             | references | null: false, foreign_key: true |
 | post_code         | string     | null: false                    |
 | sender_address_id | integer    | null: false                    |
 | city              | string     | null: false                    |
 | street_number     | string     | null: false                    |
-| building_name     | string     | null: false                    |
+| building_name     | string     |                                |
 | telephone_number  | string     | null: false                    |
 
 ### Association
- - belongs_to :item
  - belongs_to :order
