@@ -3,7 +3,7 @@
 | ------------------ | ------- | ----------- |
 | nickname           | string  | null: false |
 | email              | string  | null: false, unique: true |
-| encrypted_password | string  | null: false |
+| password           | string  | null: false |
 | last_name          | string  | null: false |
 | first_name         | string  | null: false |
 | last_name_kana     | string  | null: false |
@@ -46,7 +46,7 @@
 | Column            | Type       | Options                        |
 | ----------------- | ---------- | ------------------------------ |
 | order             | references | null: false, foreign_key: true |
-| post_code         | string     | null: false                    |
+| postal_code       | string     | null: false                    |
 | sender_address_id | integer    | null: false                    |
 | city              | string     | null: false                    |
 | street_number     | string     | null: false                    |
