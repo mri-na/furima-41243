@@ -12,6 +12,11 @@ RSpec.describe Item, type: :model do
       end
     end
     context '出品商品が登録できない場合' do
+      it 'user_idが空では登録できない' do
+        @item.user_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
+      end
       it 'product_nameが空では登録できない' do
         @item.product_name = ''
         @item.valid?
@@ -33,44 +38,44 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Explanation is too long (maximum is 1000 characters)')
       end
       it 'category_idが空では登録できない' do
-        @item.category_id = ''
+        @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category is not a number")
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
       it 'condition_idが空では登録できない' do
-        @item.condition_id = ''
+        @item.condition_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Condition is not a number")
+        expect(@item.errors.full_messages).to include("Condition must be other than 1")
       end
       it 'shipping_fee_idが空では登録できない' do
-        @item.shipping_fee_id = ''
+        @item.shipping_fee_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping fee is not a number")
+        expect(@item.errors.full_messages).to include("Shipping fee must be other than 1")
       end
       it 'sender_address_idが空では登録できない' do
-        @item.sender_address_id = ''
+        @item.sender_address_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Sender address is not a number")
+        expect(@item.errors.full_messages).to include("Sender address must be other than 1")
       end
       it 'shipping_date_idが空では登録できない' do
-        @item.shipping_date_id = ''
+        @item.shipping_date_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping date is not a number")
+        expect(@item.errors.full_messages).to include("Shipping date must be other than 1")
       end
       it 'priceが空では登録できない' do
         @item.price = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number", "Price 半角数字のみ入力できます")
+        expect(@item.errors.full_messages).to include("Price can't be blank", "Price 半角数字のみ入力できます")
       end
       it 'priceが299円以下では登録できない' do
         @item.price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
+        expect(@item.errors.full_messages).to include('Price 半角数字のみ入力できます')
       end
       it 'priceが10000000円以上では登録できない' do
         @item.price = 10000000
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
+        expect(@item.errors.full_messages).to include('Price 半角数字のみ入力できます')
       end
     end
   end
