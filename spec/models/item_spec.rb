@@ -7,11 +7,16 @@ RSpec.describe Item, type: :model do
   end
   describe '出品商品登録' do
     context '出品商品が登録できる場合' do
-      it 'user_id,product_name、explanation、category_id、condition_id、shipping_fee_id、sender_address_id、shipping_date_id、priceが存在すれば登録できる' do
+      it 'image,user_id,product_name、explanation、category_id、condition_id、shipping_fee_id、sender_address_id、shipping_date_id、priceが存在すれば登録できる' do
         expect(@item).to be_valid
       end
     end
     context '出品商品が登録できない場合' do
+      it 'imageが空では登録できない' do
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Image can't be blank")
+      end
       it 'user_idが空では登録できない' do
         @item.user_id = ''
         @item.valid?
@@ -66,6 +71,11 @@ RSpec.describe Item, type: :model do
         @item.price = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank", "Price 半角数字のみ入力できます")
+      end
+      it 'priceに半角数字以外が含まれている場合は登録できない' do
+        @item.price = '12345a'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price 半角数字のみ入力できます')
       end
       it 'priceが299円以下では登録できない' do
         @item.price = 299
