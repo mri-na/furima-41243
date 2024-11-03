@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
   def index
     @items = Item.all
     @items_exist = Item.exists?
+    @items = Item.order(created_at: :desc)
   end
 
   def new
