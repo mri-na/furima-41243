@@ -1,7 +1,10 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: :new
+  skip_before_action :authenticate_user!, only: :index
 
   def index
+    @items_exist = Item.exists?
+    @items = Item.order(created_at: :desc)
   end
 
   def new
@@ -18,8 +21,9 @@ class ItemsController < ApplicationController
   end
 
   private
-  def item_params
-    params.require(:item).permit(:product_name, :category_id, :price, :shipping_fee_id, :explanation, :condition_id, :sender_address_id, :shipping_date_id, :image).merge(user_id: current_user.id)
-  end
 
+  def item_params
+    params.require(:item).permit(:product_name, :category_id, :price, :shipping_fee_id, :explanation, :condition_id,
+                                 :sender_address_id, :shipping_date_id, :image).merge(user_id: current_user.id)
+  end
 end
