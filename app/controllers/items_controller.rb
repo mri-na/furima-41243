@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :authenticate_user!, only: [:new, :edit, :destroy]
   skip_before_action :authenticate_user!, only: [:index, :show]
-  before_action :correct_user, only: [:edit, :update]
-  before_action :set_item, only: [:show, :edit, :update]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @items_exist = Item.exists?
@@ -33,6 +33,14 @@ class ItemsController < ApplicationController
       redirect_to @item
     else
       render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @item.destroy
+      redirect_to root_path
+    else
+      render :show, status: :unprocessable_entity
     end
   end
 
