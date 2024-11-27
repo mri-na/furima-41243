@@ -5,7 +5,6 @@ class OrdersController < ApplicationController
   before_action :check_if_sold, only: [:index, :create]
 
   def redirect_if_owner
-    @item = Item.find(params[:item_id])
     return unless @item.user_id == current_user.id
 
     redirect_to root_path, alert: '自身が出品した商品の購入ページにはアクセスできません。'
