@@ -8,6 +8,7 @@ class Item < ApplicationRecord
 
   belongs_to :user
   has_one :order
+  has_one :order_address
   has_one_attached :image
 
   validates :product_name, :price, :explanation, presence: true
@@ -21,5 +22,9 @@ class Item < ApplicationRecord
 
   def was_attached?
     image.attached?
+  end
+
+  def sold?
+    order.present?
   end
 end

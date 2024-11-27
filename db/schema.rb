@@ -45,6 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_10_082056) do
     t.integer "sender_address_id", null: false
     t.string "city", null: false
     t.string "street_number", null: false
+    t.string "building_name"
     t.string "telephone_number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
