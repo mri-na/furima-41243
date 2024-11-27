@@ -26,6 +26,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    return unless @item.sold?
+
+    redirect_to root_path, alert: '商品はすでに売り切れています。'
   end
 
   def update

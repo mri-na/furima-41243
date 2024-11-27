@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :redirect_if_owner, only: [:index, :create]
+  before_action :check_if_sold, only: [:index, :create]
 
   def redirect_if_owner
     @item = Item.find(params[:item_id])
@@ -44,5 +45,12 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def check_if_sold
+    item = Item.find(params[:item_id])
+    return unless item.sold?
+
+    redirect_to root_path, alert: '商品はすでに売り切れています。'
   end
 end
