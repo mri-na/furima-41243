@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_item_id, only: [:index, :create]
   before_action :redirect_if_owner, only: [:index, :create]
   before_action :check_if_sold, only: [:index, :create]
 
@@ -12,12 +13,10 @@ class OrdersController < ApplicationController
 
   def index
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new(order_params)
     if @order_address.valid?
       pay_item
@@ -30,6 +29,10 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def set_item_id
+    @item = Item.find(params[:item_id])
+  end
 
   def order_params
     params.require(:order_address).permit(:postal_code, :sender_address_id, :city, :street_number, :building_name, :telephone_number).merge(

@@ -13,13 +13,11 @@ const pay = () => {
   form.addEventListener("submit", (e) => {
     payjp.createToken(numberElement).then(function (response) {
       if (response.error) {
-        console.log("エラー")
       } else {
         const token = response.id;
         const renderDom = document.getElementById("charge-form");
         const tokenObj = `<input value=${token} name='token' type="hidden">`;
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
-        console.log(token)
       }
       numberElement.clear();
       expiryElement.clear();

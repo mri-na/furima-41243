@@ -8,7 +8,6 @@ class Item < ApplicationRecord
 
   belongs_to :user
   has_one :order
-  has_one :order_address
   has_one_attached :image
 
   validates :product_name, :price, :explanation, presence: true
